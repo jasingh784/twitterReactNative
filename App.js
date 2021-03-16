@@ -1,75 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
-import { Button, StyleSheet, Text, TextInput, View, 
-  KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
-import { loginToAccount } from './utils/api'
+import 'react-native-gesture-handler';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import LoginScreen from './screens/LoginScreen';
+import HomeScreen from './screens/HomeScreen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
+  return(
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+        />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-
-  const onPressLogin = () => {
-    console.log('inside onPressLogin')
-    loginToAccount({ email, password })
-
-  }
-
-  return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? "padding" : "height"}
-      style={styles.container}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.inner}>
-          <Text style={styles.title}>Login</Text>
-
-          <TextInput 
-            style={styles.input}
-            onChangeText = {setEmail}
-            value={email}
-            placeholder="Email"
-          />
-
-          <TextInput 
-            style={styles.input}
-            onChangeText = {setPassword}
-            value={password}
-            placeholder="Password"
-            secureTextEntry={true}
-          />
-
-          <Button
-            onPress={onPressLogin}
-            title="Login"
-            color="blue"
-          />
-      </View>
-    </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  inner: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize:30,
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    width: '80%'
-  }
-});
+};
