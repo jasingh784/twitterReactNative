@@ -41,11 +41,11 @@ export const createNewAccount = async(data) => {
             }
         )
     
-        
-    return true;
+    const userId = await response.json();
+    return userId;
     } catch (error) {
         console.log(error)
-        return false;
+        return;
     }
 }
 

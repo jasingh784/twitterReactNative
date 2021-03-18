@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, StyleSheet, Text, TextInput, View, 
-  KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, Platform, Alert } from 'react-native';
-
+  KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, Platform, Alert, ScrollView } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { createNewAccount } from '../utils/authApi';
 
 export default function SignUpScreen({ navigation }) {
 
@@ -10,26 +11,55 @@ export default function SignUpScreen({ navigation }) {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("")
 
   const onPressSignUp = async() => {
+
+    let userId;
     
-    console.log('Signup Pressed');
+    //Validation
+    if(confirmPassword !== '' && password !== '') {
+      if(confirmPassword === password && confirmPassword.length === 6) {
+        userId = await createNewAccount({
+            firstname: firstname.toLowerCase(),
+            lastname: lastname.toLowerCase(),
+            email: email.toLowerCase(),
+            username: username.toLowerCase(),
+            password: password.toLowerCase(),
+          });
+      } else {
+        Alert.alert(
+          'Password Error',
+          "Passwords must match",
+          [
+            {
+              Text: 'OK'
+            }
+          ]
+        )
+      }
+    }
+    
+    console.log(userId)
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? "padding" : "height"}
-      style={styles.container}
+    <KeyboardAwareScrollView
+      style={{backgroundColor: 'white'}}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={Platform.OS === 'ios' ? styles.container : null}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
-          <Text style={styles.title}>Login</Text>
+          
+          <Text style={styles.title}>Create Account</Text>
 
           <TextInput 
             style={styles.input}
             onChangeText = {setFirstname}
             value={firstname}
             placeholder="First Name"
+            
           />
             
         <TextInput 
@@ -61,14 +91,23 @@ export default function SignUpScreen({ navigation }) {
             secureTextEntry={true}
           />
 
+          <TextInput 
+            style={styles.input}
+            onChangeText = {setConfirmPassword}
+            value={confirmPassword}
+            placeholder=" Confirm Password"
+            secureTextEntry={true}
+          />  
+
           <Button
             onPress={onPressSignUp}
             title="Sign Up"
             color="blue"
           />
+          
       </View>
     </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 }
 
