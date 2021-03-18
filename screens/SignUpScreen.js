@@ -1,31 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Button, StyleSheet, Text, TextInput, View, 
   KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, Platform, Alert } from 'react-native';
-import { loginToAccount } from '../utils/authApi'
 
-export default function LoginScreen({ navigation }) {
+
+export default function SignUpScreen({ navigation }) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [username, setUsername] = useState("");
 
-  const onPressLogin = async() => {
+  const onPressSignUp = async() => {
     
-    //login to account using the info the user entered
-    let response = loginToAccount({ email: email.toLowerCase(), password });
-    
-    if((await response).valueOf()) {
-      navigation.navigate('Home')
-    } else {
-      Alert.alert(
-        "Login Failed",
-        "Please enter a valid email and password.",
-        [
-          {
-            text: 'OK'
-          }
-        ]
-      )
-    }
+    console.log('Signup Pressed');
   }
 
   return (
@@ -39,9 +27,30 @@ export default function LoginScreen({ navigation }) {
 
           <TextInput 
             style={styles.input}
+            onChangeText = {setFirstname}
+            value={firstname}
+            placeholder="First Name"
+          />
+            
+        <TextInput 
+            style={styles.input}
+            onChangeText = {setLastname}
+            value={lastname}
+            placeholder="Last Name"
+          />
+
+        <TextInput 
+            style={styles.input}
             onChangeText = {setEmail}
             value={email}
             placeholder="Email"
+          />
+
+        <TextInput 
+            style={styles.input}
+            onChangeText = {setUsername}
+            value={username}
+            placeholder="UserName"
           />
 
           <TextInput 
@@ -53,14 +62,8 @@ export default function LoginScreen({ navigation }) {
           />
 
           <Button
-            onPress={onPressLogin}
-            title="Login"
-            color="blue"
-          />
-
-          <Button
-            onPress={() => navigation.navigate('SignUp')}
-            title="Create Account"
+            onPress={onPressSignUp}
+            title="Sign Up"
             color="blue"
           />
       </View>
