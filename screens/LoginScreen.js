@@ -58,6 +58,9 @@ export default function LoginScreen({ navigation }) {
 
             <View style={styles.loginButton}>
               <Button
+                titleStyle={{
+                  color
+                }}
                 onPress={onPressLogin}
                 title="Login"
                 color="blue"
