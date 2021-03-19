@@ -11,7 +11,9 @@ export default function SignUpScreen({ navigation }) {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const onPressSignUp = async() => {
 
@@ -40,7 +42,7 @@ export default function SignUpScreen({ navigation }) {
       }
     }
     
-    console.log(userId)
+    navigation.navigate('Login');
   }
 
   return (
