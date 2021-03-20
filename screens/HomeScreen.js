@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, SafeAreaView } from 'react-native'
 import { getAllPosts } from '../utils/authApi'
 
 function HomeScreen( { navigation }) {
@@ -13,9 +13,9 @@ function HomeScreen( { navigation }) {
     // }, [])
 
     return (
-        <View>
+        <SafeAreaView>
             <Text>You are logged in</Text>
-        </View>
+        </SafeAreaView>
     )
 }
 
