@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import PostFooter from './PostComponents/PostFooter'
 import PostHeader from './PostComponents/PostHeader'
+import PostBody from './PostComponents/PostBody';
 
 
 function Post() {
@@ -9,7 +10,7 @@ function Post() {
         <View style={styles.container}>
             <PostHeader />
 
-            <Text>Post Body</Text>
+            <PostBody postText='Thi is the post text' />
 
             <PostFooter />
         </View>

@@ -42,10 +42,10 @@ export const createNewAccount = async(data) => {
         )
     
     const userId = await response.json();
-    return userId;
+    return true;
     } catch (error) {
         console.log(error)
-        return;
+        return false;
     }
 }
 

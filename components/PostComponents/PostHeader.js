@@ -1,13 +1,14 @@
 import React from 'react'
-import { View, StyleSheet, Image, Text } from 'react-native' 
+import { View, StyleSheet, Image, Text, } from 'react-native' 
+
 
 function PostHeader() {
     return (
         <View style={styles.userInfoView}>
-            {/* <Image 
-            source={{ uri: '' }}
-            style={{width: 50, height: 50, borderRadius: '50%'}}
-            /> */}
+            <Image 
+            source={ require('../../assets/defaultAvatar.png') }
+            style={{width: 50, height: 50, borderRadius: 50}}
+            />
             <Text style={styles.username}>jas</Text>
         </View>
     )

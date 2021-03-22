@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Button, StyleSheet, Text, TextInput, View, 
-  KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, Platform, Alert, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, View, 
+TouchableWithoutFeedback, Keyboard, Platform, Alert, ActivityIndicator} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { createNewAccount } from '../utils/authApi';
 import MyButton from '../components/MyButton';
@@ -13,34 +13,45 @@ export default function SignUpScreen({ navigation }) {
   const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setisLoading] = useState(false);
 
 
   const onPressSignUp = async() => {
 
-    let userId;
+    setisLoading(true);
+    let response;
     
     //Validation
     if(confirmPassword !== '' && password !== '') {
       if(confirmPassword === password && confirmPassword.length === 6) {
-        userId = await createNewAccount({
+        response = await createNewAccount({
             firstname: firstname.toLowerCase(),
             lastname: lastname.toLowerCase(),
             email: email.toLowerCase(),
             username: username.toLowerCase(),
             password: password.toLowerCase(),
           });
+
+          if((await response).valueOf()) {
+            setisLoading(false);
+            navigation.navigate('Home');
+          }
+
       } else {
-        passwordNotMatchAlert();
+        setisLoading(false);
+        myErrorAlerts('Password Error', "Passwords do not match");
       }
+    } else {
+      myErrorAlerts("Password Error", "Password field cannot be empty");
     }
     
     navigation.navigate('Login');
   }
 
-  const passwordNotMatchAlert = () => {
+  const myErrorAlerts = (title, message) => {
     Alert.alert(
-      'Password Error',
-      "Passwords must match",
+      title,
+      message,
       [
         {
           Text: 'OK'
@@ -60,10 +71,12 @@ export default function SignUpScreen({ navigation }) {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={Platform.OS === 'ios' ? styles.container : null}
     >
+      
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
-          
+        {isLoading ? <ActivityIndicator color="#000000" size="large" /> : (
           <View style={styles.formWrapper}>
+            
             <Text style={styles.title}>Create Account</Text>
 
             <TextInput 
@@ -116,6 +129,7 @@ export default function SignUpScreen({ navigation }) {
               title="Sign Up"
             />
           </View>
+          )}
       </View>
     </TouchableWithoutFeedback>
     </KeyboardAwareScrollView>
@@ -128,10 +142,9 @@ const styles = StyleSheet.create({
   },
   inner: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#44b7bb'
+    backgroundColor: '#44b7bb', 
   },
   formWrapper: {
     backgroundColor: 'white',

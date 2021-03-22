@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, StyleSheet, Text, TextInput, View, 
-  KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, Platform, Alert } from 'react-native';
+  KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, Platform, Alert, ActivityIndicator } from 'react-native';
 import { loginToAccount } from '../utils/authApi'
 import MyButton from '../components/MyButton';
 
@@ -8,6 +8,7 @@ export default function LoginScreen({ navigation }) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setisLoading] = useState(false)
 
   const loginUser = async() => {
 
@@ -15,8 +16,10 @@ export default function LoginScreen({ navigation }) {
     let response = loginToAccount({ email: email.toLowerCase(), password });
     
     if((await response).valueOf()) {
-      navigation.navigate('Home')
+      setisLoading(false);
+      navigation.navigate('Home');
     } else {
+      setisLoading(false);
       failedToLoginAlert();
     }
   }
@@ -27,6 +30,7 @@ export default function LoginScreen({ navigation }) {
     if(email === "" || password === "") {
       failedToLoginAlert();
     } else {
+      setisLoading(true);
       loginUser();
     }
   }
@@ -48,6 +52,7 @@ export default function LoginScreen({ navigation }) {
       behavior={Platform.OS === 'ios' ? "padding" : "height"}
       style={styles.container}
     >
+      {isLoading ? <ActivityIndicator color="#000000" size="large"/> : (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
 
@@ -86,6 +91,7 @@ export default function LoginScreen({ navigation }) {
 
       </View>
     </TouchableWithoutFeedback>
+      )}
     </KeyboardAvoidingView>
   );
 }
@@ -93,6 +99,7 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
   },
   inner: {
     flex: 1,

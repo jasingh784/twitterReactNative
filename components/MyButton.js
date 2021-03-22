@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 function MyButton({title, onPress}) {
     return (
         <Pressable onPress={onPress}>
-            <View style={styles.myButtonWrapper}><Text style={styles.myButton}>{title}</Text></View>
+            <Text style={styles.myButton}>{title}</Text>
         </Pressable>
     )
 }   
@@ -14,13 +14,12 @@ styles = StyleSheet.create({
         margin: 10,
         paddingVertical: 5,
         paddingHorizontal: 30,
-        fontSize: 30,
+        fontSize: 25,
         color: 'white',
-    },
-    myButtonWrapper: {
-        borderRadius: 10,
         backgroundColor: '#44b7bb',
-    }
+        borderRadius: 10,
+        fontWeight: "bold",
+    },
 })
 
 export default MyButton
