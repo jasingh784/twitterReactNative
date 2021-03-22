@@ -11,11 +11,12 @@ function PostFooter() {
     )
 }
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
     postFooter: {
         marginVertical: 20,
+        marginHorizontal: 20,
         flexDirection: "row",
-        justifyContent: "space-evenly",
+        justifyContent: 'space-between',
     },
 })
 export default PostFooter

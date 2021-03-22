@@ -10,7 +10,7 @@ function Post() {
         <View style={styles.container}>
             <PostHeader />
 
-            <PostBody postText='Thi is the post text' />
+            <PostBody postText='This is the post text' />
 
             <PostFooter />
         </View>

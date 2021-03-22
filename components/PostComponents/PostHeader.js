@@ -14,7 +14,7 @@ function PostHeader() {
     )
 }
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
     userInfoView: {
         flexDirection: "row",
         alignItems: "center",
