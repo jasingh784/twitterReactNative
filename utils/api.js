@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 export const getAllPosts = async() => {
 
     const token = await AsyncStorage.getItem('auth-token');
@@ -14,7 +16,6 @@ export const getAllPosts = async() => {
         })
 
         const allPosts = await response.json();
-        console.log(allPosts)
         return allPosts;
 
     } catch (error) {

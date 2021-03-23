@@ -5,12 +5,12 @@ import PostHeader from './PostComponents/PostHeader'
 import PostBody from './PostComponents/PostBody';
 
 
-function Post() {
+function Post({postText}) {
     return (
         <View style={styles.container}>
             <PostHeader />
 
-            <PostBody postText='This is the post text' />
+            <PostBody postText={postText}/>
 
             <PostFooter />
         </View>

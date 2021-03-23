@@ -9,7 +9,7 @@ function MyButton({title, onPress}) {
     )
 }   
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
     myButton: {
         margin: 10,
         paddingVertical: 5,
