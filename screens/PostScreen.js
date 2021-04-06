@@ -5,29 +5,23 @@ import Post from '../components/Post'
 
 function PostScreen( { navigation }) {
 
-    const [posts, setPosts] = useState([
-        {postbody: 'This is a post', _id: 1},
-        {postbody: 'This is a post', _id: 2},
-        {postbody: 'This is a post', _id: 3},
-        {postbody: 'This is a post', _id: 4},
-        {postbody: 'This is a post', _id: 5},
-        {postbody: 'This is a post', _id: 6},
-        {postbody: 'This is a post', _id: 7},
-        {postbody: 'This is a post', _id: 8},
-    ]);
+    const [posts, setPosts] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    // useEffect(() => {
+    const getPosts = async() => {
+        let response = await getAllPosts();
+        setPosts(response)
+    }
 
-    //     console.log(isLoading);
+    useEffect(() => {
 
-    //     const getPosts = async() => {
-    //         let response = await getAllPosts();
-    //         setPosts(response)
-    //     }
+        console.log(isLoading);
 
-    //     getPosts();
-    // }, [])
+        getPosts();
+        console.log(posts)
+        console.log(isLoading)
+
+    }, [])
 
     const renderItem = ({item}) => (
         <Post postText={item.postbody}/>

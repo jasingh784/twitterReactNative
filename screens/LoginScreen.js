@@ -17,7 +17,7 @@ export default function LoginScreen({ navigation }) {
     
     if((await response).valueOf()) {
       setisLoading(false);
-      navigation.navigate('Home');
+      navigation.navigate('DrawerNav');
     } else {
       setisLoading(false);
       failedToLoginAlert();

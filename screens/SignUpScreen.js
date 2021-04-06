@@ -23,7 +23,7 @@ export default function SignUpScreen({ navigation }) {
     
     //Validation
     if(confirmPassword !== '' && password !== '') {
-      if(confirmPassword === password && confirmPassword.length === 6) {
+      if(confirmPassword === password && confirmPassword.length >= 6) {
         response = await createNewAccount({
             firstname: firstname.toLowerCase(),
             lastname: lastname.toLowerCase(),
@@ -34,7 +34,7 @@ export default function SignUpScreen({ navigation }) {
 
           if((await response).valueOf()) {
             setisLoading(false);
-            navigation.navigate('Home');
+            navigation.navigate('DrawerNav');
           }
 
       } else {
