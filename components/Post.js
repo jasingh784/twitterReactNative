@@ -5,10 +5,10 @@ import PostHeader from './PostComponents/PostHeader'
 import PostBody from './PostComponents/PostBody';
 
 
-function Post({postText}) {
+function Post({postText, author}) {
     return (
         <View style={styles.container}>
-            <PostHeader />
+            <PostHeader author={author}/>
 
             <PostBody postText={postText}/>
 
@@ -20,9 +20,12 @@ function Post({postText}) {
 styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
-        backgroundColor: '#ecf0f1',
+        backgroundColor: '#fff',
         padding: 8,
+        marginBottom: 4,
         borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
     }
 })
 export default Post

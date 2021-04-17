@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 function MyButton({title, onPress}) {
     return (
-        <Pressable onPress={onPress}>
+        <Pressable onPress={onPress} >
             <Text style={styles.myButton}>{title}</Text>
         </Pressable>
     )

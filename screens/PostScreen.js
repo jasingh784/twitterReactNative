@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Platform, SafeAreaView, StatusBar, StyleSheet, FlatList, ActivityIndicator, View, Text, Button } from 'react-native'
+import { Platform, SafeAreaView, StatusBar, StyleSheet, FlatList, ActivityIndicator, View, Pressable, Text } from 'react-native'
 import { getAllPosts } from '../utils/api'
 import Post from '../components/Post'
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 function PostScreen( { navigation }) {
 
@@ -11,6 +14,7 @@ function PostScreen( { navigation }) {
     const getPosts = async() => {
         let response = await getAllPosts();
         setPosts(response)
+        console.log(response)
     }
 
     useEffect(() => {
@@ -24,7 +28,7 @@ function PostScreen( { navigation }) {
     }, [])
 
     const renderItem = ({item}) => (
-        <Post postText={item.postbody}/>
+        <Post postText={item.postText} author={item.author}/>
     )
 
     return (
@@ -32,16 +36,24 @@ function PostScreen( { navigation }) {
             <StatusBar 
                 barStyle= {Platform.OS === 'ios' ? "dark-content": 'default'}
             />
+
             <View style={styles.header}>
-                <Button 
-                    title="Open Drawer"
-                    onPress={() => navigation.openDrawer()}/>
+                <Pressable onPress={() => navigation.openDrawer()}>
+                    <Ionicons name="menu" size={38} color="#EF9186" style={styles.burger}/>
+                </Pressable>
+
+                <Text style={styles.trendingText}>Trending</Text>
+
+                <MaterialCommunityIcons name="duck" size={38} color="#EF9186" style={styles.burger}/>
             </View>
+
             {isLoading ? <ActivityIndicator size="large" color="#000000" />: (
             <FlatList 
                 data={posts}
                 renderItem={renderItem}
                 keyExtractor={item => item._id.toString()}
+                onRefresh={() => getPosts()}
+                refreshing={isLoading}
             />
             )}
         </SafeAreaView>
@@ -54,8 +66,21 @@ const styles = StyleSheet.create({
     },
     header: {
         width: '100%',
-        height: 40,
-        backgroundColor: '#44b7bb',
+        height: 50,
+        backgroundColor: '#fff',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    burger: {
+        marginHorizontal: 8,
+        marginTop: 6,
+    },
+    trendingText: {
+        fontWeight: 'bold',
+        fontSize: 18,
+        color: '#EF9186',
     }
 })
 

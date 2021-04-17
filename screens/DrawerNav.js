@@ -13,7 +13,7 @@ function DrawerNav( { navigation }) {
         <Drawer.Navigator initialRouteName="Posts">
             <Drawer.Screen name="Posts" component={PostScreen} />
             <Drawer.Screen name="Profile" component={ProfileScreen} />
-            <Drawer.Screen name="CreatePost" component={CreatePostScreen} />
+            <Drawer.Screen name="Create Post" component={CreatePostScreen} />
         </Drawer.Navigator>
     )
 }

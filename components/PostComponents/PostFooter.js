@@ -13,8 +13,8 @@ function PostFooter() {
 
 const styles = StyleSheet.create({
     postFooter: {
-        marginVertical: 20,
-        marginHorizontal: 20,
+        marginVertical: 16,
+        marginHorizontal: 16,
         flexDirection: "row",
         justifyContent: 'space-between',
     },
