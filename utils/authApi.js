@@ -67,10 +67,33 @@ export const getUserName = async(id) => {
         )
     
     const data = await response.json()
-    return data.username;
+    return {username: data.username, firstname: data.firstname, lastname: data.lastname};
     } catch (error) {
         console.log(error)
         return false;
     }
 }
+
+export const getUserInfo = async(id) => {
+
+    let url = baseURL + id;
+    try {
+        const response = await fetch(url,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type' : 'application/json',
+                    
+                },
+            }
+        )
+    
+    const data = await response.json()
+    return data
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+}
+
 

@@ -12,7 +12,8 @@ function PostBody({postText}) {
 const styles = StyleSheet.create({
     postBodyStyle: {
         fontSize: 18,
-        marginHorizontal: 20
+        marginHorizontal: 20,
+        marginTop: 8,
     }
 })
 

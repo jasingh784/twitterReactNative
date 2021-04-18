@@ -14,17 +14,10 @@ function PostScreen( { navigation }) {
     const getPosts = async() => {
         let response = await getAllPosts();
         setPosts(response)
-        console.log(response)
     }
 
     useEffect(() => {
-
-        console.log(isLoading);
-
         getPosts();
-        console.log(posts)
-        console.log(isLoading)
-
     }, [])
 
     const renderItem = ({item}) => (

@@ -3,7 +3,7 @@ import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-nativ
 import { getAllPosts } from '../utils/api'; 
 import Post from '../components/Post';
 
-export default function ProfileBody() {
+export default function ProfileBody({postsArr}) {
 
     const [userPosts, setUserPosts] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -11,17 +11,10 @@ export default function ProfileBody() {
     const getPosts = async() => {
         let response = await getAllPosts();
         setUserPosts(response)
-        console.log(response)
     }
 
     useEffect(() => {
-
-        console.log(isLoading);
-
         getPosts();
-        console.log(userPosts)
-        console.log(isLoading)
-
     }, [])
 
     const renderItem = ({item}) => (
