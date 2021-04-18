@@ -14,7 +14,7 @@ function PostHeader({author}) {
 
     useEffect( () => {
         getAuthorUserName();
-    }, [])
+    }, [author])
 
 
     return (

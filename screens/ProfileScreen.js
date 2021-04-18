@@ -3,6 +3,8 @@ import { Platform, SafeAreaView, StatusBar, StyleSheet, FlatList, ActivityIndica
 import { getAllPosts } from '../utils/api'
 import Post from '../components/Post'
 import  DrawerHeader from '../components/DrawerHeader';
+import ProfileHeader from '../components/ProfileHeader';
+import ProfileBody from '../components/ProfileBody';
 
 function ProfileScreen( { navigation }) {
 
@@ -13,7 +15,9 @@ function ProfileScreen( { navigation }) {
             />
             <DrawerHeader navigation={navigation} title="Profile"/>
 
-            <Text>This is the profile screen</Text>
+            <ProfileHeader />
+
+            <ProfileBody />
         </SafeAreaView>
     )
 }

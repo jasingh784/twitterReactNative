@@ -38,8 +38,8 @@ export const createPost = async(data) => {
             },
             body: JSON.stringify(data),
         })
-
-        console.log(response);
+        const postData = await response.json();
+        return postData.postId;
     } catch (error) {
         console.log(error)
     }

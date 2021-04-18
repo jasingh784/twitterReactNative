@@ -16,10 +16,12 @@ export const loginToAccount = async(data) => {
                 body: JSON.stringify(data)
             }
         )
-    const token = await response.json()
-    await AsyncStorage.setItem('auth-token', token);
+    const respJson = await response.json()
+    await AsyncStorage.setItem('auth-token', respJson.token);
+    await AsyncStorage.setItem('userid', respJson.userID);
+    
 
-    console.log(token)
+    console.log(respJson)
     return true;
     } catch (error) {
         console.log(error)
