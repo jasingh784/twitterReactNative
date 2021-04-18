@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { SafeAreaView, TextInput, StyleSheet, Text,StatusBar } from 'react-native'
+import { SafeAreaView, TextInput, StyleSheet, ActivityIndicator, StatusBar } from 'react-native'
 import MyButton from '../components/MyButton';
 import PostHeader from '../components/PostComponents/PostHeader'
 import { createPost } from '../utils/api'
@@ -10,13 +10,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 function CreatePostScreen({ navigation }) {
 
     const [postText, setPostText] = useState('');
-    const [charRemaining, setCharRemaining] = useState(128);
+    const [isLoading, setIsLoading] = useState(true);
     const [loggedInUser, setLoggedInUser] = useState('')
 
     useEffect( () => {
         async function getUserId() {
             const userID = await AsyncStorage.getItem('user._id');
             setLoggedInUser(userID);
+            setIsLoading(false);
         }
         getUserId();
     }, []);
@@ -46,7 +47,9 @@ function CreatePostScreen({ navigation }) {
             />
             <DrawerHeader navigation={navigation} title="New Post"/>
 
-            <PostHeader author={loggedInUser}/>
+            {isLoading ? <ActivityIndicator color="#000000" size="large"/> : (
+                <PostHeader author={loggedInUser}/>
+            )}
 
             <TextInput 
                 style={styles.input}

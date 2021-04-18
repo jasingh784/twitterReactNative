@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+const baseURL = 'https://twitter-backend-v2.herokuapp.com/api/posts/';
+
 export const getAllPosts = async() => {
 
     const token = await AsyncStorage.getItem('auth-token');
@@ -44,3 +46,29 @@ export const createPost = async(data) => {
         console.log(error)
     }
 }
+
+export const getOnePost = async(id) => {
+
+    let url = baseURL + id;
+
+    const token = await AsyncStorage.getItem('auth-token');
+    token.toString();
+
+    try {
+        const response = await fetch(url, 
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': token,
+            },
+        })
+
+        const thePost = await response.json();
+        return thePost;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
