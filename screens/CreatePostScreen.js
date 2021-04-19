@@ -15,7 +15,7 @@ function CreatePostScreen({ navigation }) {
 
     useEffect( () => {
         async function getUserId() {
-            const userID = await AsyncStorage.getItem('user._id');
+            const userID = await AsyncStorage.getItem('userid'); 
             setLoggedInUser(userID);
             setIsLoading(false);
         }

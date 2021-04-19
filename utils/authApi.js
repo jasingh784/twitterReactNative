@@ -19,7 +19,9 @@ export const loginToAccount = async(data) => {
     const respJson = await response.json()
     await AsyncStorage.setItem('auth-token', respJson.token);
     await AsyncStorage.setItem('userid', respJson.userID);
-    
+    await AsyncStorage.setItem('username', respJson.username);
+    await AsyncStorage.setItem('firstname', respJson.firstname);
+    await AsyncStorage.setItem('lastname', respJson.lastname);
 
     console.log(respJson)
     return true;
@@ -93,6 +95,21 @@ export const getUserInfo = async(id) => {
     } catch (error) {
         console.log(error)
         return false;
+    }
+}
+
+export const signOut = async() => {
+    let keys = []
+    try {
+        keys = await AsyncStorage.getAllKeys();
+    } catch (e) {
+        console.log(e)
+    }
+    
+    try {
+        await AsyncStorage.multiRemove(keys);
+    } catch (e) {
+        console.log(e)
     }
 }
 
