@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
-import { getAllPosts } from '../utils/api'; 
+import { getAllPostsByUser } from '../utils/authApi'; 
 import Post from '../components/Post';
 
-export default function ProfileBody({postsArr}) {
+export default function ProfileBody({userid}) {
 
     const [userPosts, setUserPosts] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const getPosts = async() => {
-        let response = await getAllPosts();
+        let response = await getAllPostsByUser(userid);
         setUserPosts(response)
     }
 

@@ -1,12 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, SafeAreaView } from 'react-native'
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { Drawer, Avatar, Title, Text } from 'react-native-paper';
 import { FontAwesome, Ionicons, AntDesign } from '@expo/vector-icons';
-import { signOut } from '../utils/authApi';
+import { getUserInfo, signOut } from '../utils/authApi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 export default function CustomDrawerContent(props) {
+
+    const [firstName, setFirstName] = useState('Firstname')
+    const [username, setUsername] = useState('Username')
+
+    const getUser = async() => {
+        const firstname = await AsyncStorage.getItem('firstname');
+        const username = await AsyncStorage.getItem('username');
+        setFirstName(firstname);
+        setUsername(username);
+    }
+
+    useEffect( () => {
+        getUser();
+    })
     return (
         <View style={{flex: 1}}>
             <DrawerContentScrollView {...props}>
@@ -16,8 +32,8 @@ export default function CustomDrawerContent(props) {
                         size={60}
                     />
                     <View styles={styles.avatarName}>
-                        <Title style={{marginLeft: 16,}}>Jas</Title>
-                        <Text style={{marginLeft: 16,}}>@jas_the_cool</Text>
+                        <Title style={{marginLeft: 16,}}>{firstName}</Title>
+                        <Text style={{marginLeft: 16,}}>@{username}</Text>
                     </View>
                 </View>
                 <DrawerItem

@@ -42,7 +42,7 @@ function ProfileScreen( { navigation }) {
             )}
             
             {isLoading ? <ActivityIndicator color="#000000" size="large"/> : (
-                <ProfileBody postsArr={userInfo.posts}/>
+                <ProfileBody userid={userInfo._id}/>
             )}
         </SafeAreaView>
     )

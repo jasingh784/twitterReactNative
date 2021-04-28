@@ -26,7 +26,7 @@ function CreatePostScreen({ navigation }) {
         const postId = await createPost({postText});
         if(postId != 0) {
             setPostText('');
-            navigation.navigate("Posts")
+            navigation.navigate("Profile")
         } else {
             Alert.alert(
                 "Failed",

@@ -11,7 +11,7 @@ const Drawer = createDrawerNavigator();
 function DrawerNav( { navigation }) {
 
     return (
-        <Drawer.Navigator initialRouteName="Posts" drawerContent={(props) => <CustomDrawerContent {...props} />}>
+        <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
             <Drawer.Screen name="Trending" component={PostScreen} />
             <Drawer.Screen name="Profile" component={ProfileScreen} />
             <Drawer.Screen name="Create Post" component={CreatePostScreen} />

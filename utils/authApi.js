@@ -114,3 +114,25 @@ export const signOut = async() => {
 }
 
 
+export const getAllPostsByUser = async(id) => {
+
+    let url = baseURL + id + '/posts';
+    try {
+        const response = await fetch(url,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type' : 'application/json',
+                    
+                },
+            }
+        )
+    
+    const data = await response.json()
+    return data
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+}
+
