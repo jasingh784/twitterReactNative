@@ -7,6 +7,7 @@ import DrawerHeader from '../components/DrawerHeader';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
+import { firebase } from '../firebase/config';
 
 
 function CreatePostScreen({ navigation }) {
@@ -15,6 +16,7 @@ function CreatePostScreen({ navigation }) {
     const [isLoading, setIsLoading] = useState(true);
     const [loggedInUser, setLoggedInUser] = useState('');
     const [image, setImage] = useState(null);
+    const [isPosting, setisPosting] = useState(false);
 
     useEffect( () => {
         async function getUserId() {
@@ -25,12 +27,37 @@ function CreatePostScreen({ navigation }) {
         getUserId();
     }, []);
 
+    const uploadImage = async() => {
+        const storageRef = firebase.storage().ref();
+        const response = await fetch(image);
+        const blob = await response.blob();
+
+        //push to path
+        const snapshot = await storageRef.child('images/' + Date.now()).put(blob)
+
+        console.log('Uploaded', snapshot.totalBytes, 'bytes');
+        console.log('file metadata:', snapshot.metadata);
+        //get download url
+        
+        return await snapshot.ref.getDownloadURL()
+
+    }
+
     const submitPost = async() => {
-        const postId = await createPost({postText});
+        setisPosting(true);
+        let mediaUrl = null;
+        if(image) {
+            mediaUrl = await uploadImage();
+            console.log("media url", mediaUrl);
+        }
+        const postId = await createPost({postText, mediaUrl});
         if(postId != 0) {
             setPostText('');
+            setImage(null);
+            setisPosting(false);
             navigation.navigate("Profile")
         } else {
+            setisPosting(false);
             Alert.alert(
                 "Failed",
                 "Unable to create post. Please try again",
@@ -77,6 +104,8 @@ function CreatePostScreen({ navigation }) {
                 <PostHeader author={loggedInUser}/>
             )}
 
+            {isPosting ? <ActivityIndicator color="#000000" size="large"/> : (
+            <>
             <TextInput 
                 style={styles.input}
                 onChangeText={setPostText}
@@ -104,6 +133,8 @@ function CreatePostScreen({ navigation }) {
                 title='Post'
                 onPress={submitPost}
             />
+            </>
+            )}
         </SafeAreaView>
     )
 }
