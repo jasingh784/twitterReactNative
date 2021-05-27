@@ -4,6 +4,7 @@ import PostScreen from './PostScreen';
 import ProfileScreen from './ProfileScreen';
 import CreatePostScreen from './CreatePostScreen';
 import CustomDrawerContent from '../components/CustomDrawerContent';
+import FullScreenImage from '../components/FullScreenImage';
 
 
 const Drawer = createDrawerNavigator();

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Image, Pressable } from 'react-native'
+import { StyleSheet, View, Image, Pressable, Modal, Text } from 'react-native'
 import PostFooter from './PostComponents/PostFooter'
 import PostHeader from './PostComponents/PostHeader'
 import PostBody from './PostComponents/PostBody';
@@ -8,13 +8,14 @@ import PostBody from './PostComponents/PostBody';
 function Post({postText, author, mediaUrl}) {
 
     const [fullScreenUrl, setfullScreenUrl] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const onPressImage = () => {
-        setfullScreenUrl(mediaUrl);
+        setModalVisible(true);
     }
 
     const onPressFullScreenImage = () => {
-        setfullScreenUrl(null);
+        setModalVisible(!modalVisible);
     }
 
     return (
@@ -28,14 +29,20 @@ function Post({postText, author, mediaUrl}) {
                 <Pressable onPress={onPressImage}>
                     <Image source={{ uri: mediaUrl }} style={styles.image} />
                 </Pressable>
-            )} 
-            
-            {fullScreenUrl && (
-                <Pressable onPress={onPressFullScreenImage}>
-                    <Image source={{ uri: fullScreenUrl }} style={styles.fullScreen} />
-                </Pressable>
-            )} 
+            )}  
 
+            <Modal 
+                animationType='fade'
+                transparent={false}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <Pressable style={styles.fullScreenOverlay} onPress={onPressFullScreenImage}>
+                    <Image source={{uri: mediaUrl}} style={styles.fullScreen} />
+                </Pressable>
+            </Modal>
 
             <PostFooter />
         </View>
@@ -53,10 +60,16 @@ styles = StyleSheet.create({
         borderBottomRightRadius: 10,
     },
     image: {
-        width: 200,
-        height: 200,
+        width: 300,
+        height: 300,
         alignSelf: 'center',
         marginVertical: 15,
+        resizeMode: 'contain',
+    },
+    fullScreenOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#000',
     },
     fullScreen: {
         flex: 1,

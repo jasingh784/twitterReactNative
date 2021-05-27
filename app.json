@@ -1,5 +1,6 @@
 {
   "expo": {
+    "sdkVersion": "41.0.0",
     "name": "twitterReactNative",
     "slug": "twitterReactNative",
     "version": "1.0.0",
