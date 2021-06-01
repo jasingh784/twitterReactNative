@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { SafeAreaView, TextInput, StyleSheet, ActivityIndicator, StatusBar, Pressable, Text, Image } from 'react-native'
+import { SafeAreaView, TextInput, StyleSheet, ActivityIndicator, StatusBar, Pressable, Text, Image, TouchableWithoutFeedback, Keyboard, View } from 'react-native'
 import MyButton from '../components/MyButton';
 import PostHeader from '../components/PostComponents/PostHeader'
 import { createPost } from '../utils/api'
@@ -95,46 +95,50 @@ function CreatePostScreen({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar 
-                barStyle= {Platform.OS === 'ios' ? "dark-content": 'default'}
-            />
-            <DrawerHeader navigation={navigation} title="New Post"/>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.container}>
+                <StatusBar 
+                    barStyle= {Platform.OS === 'ios' ? "dark-content": 'default'}
+                />
+                <DrawerHeader navigation={navigation} title="New Post"/>
 
-            {isLoading ? <ActivityIndicator color="#000000" size="large"/> : (
-                <PostHeader author={loggedInUser}/>
-            )}
+                {isLoading ? <ActivityIndicator color="#000000" size="large"/> : (
+                    <PostHeader author={loggedInUser}/>
+                )}
 
-            {isPosting ? <ActivityIndicator color="#000000" size="large"/> : (
-            <>
-            <TextInput 
-                style={styles.input}
-                onChangeText={setPostText}
-                value={postText}
-                placeholder="Share your thoughts with the world"
-                multiline={true}
-                maxLength={128}
-            />
+                {isPosting ? <ActivityIndicator color="#000000" size="large"/> : (
+                <>
+                <TextInput 
+                    style={styles.input}
+                    onChangeText={setPostText}
+                    value={postText}
+                    placeholder="Share your thoughts with the world"
+                    multiline={true}
+                    maxLength={128}
+                />
 
-            {image && <Image source={{ uri: image }} style={styles.image} />}
+                {image && <Image source={{ uri: image }} style={styles.image} />}
 
-            {!image && (
-            <Pressable onPress={addImage} style={{flexDirection: 'row', alignItems: 'center', marginVertical: 15}}>
-                <Ionicons name="image-outline" size={30} color="black" style={styles.imageIcon}/>
-                <Text>Add Image</Text>
-            </Pressable> )}
+                {!image && (
+                <Pressable onPress={addImage} style={{flexDirection: 'row', alignItems: 'center', marginVertical: 15}}>
+                    <Ionicons name="image-outline" size={30} color="black" style={styles.imageIcon}/>
+                    <Text>Add Image</Text>
+                </Pressable> )}
 
-            {image && (
-            <Pressable onPress={removeImage} style={{flexDirection: 'row', alignItems: 'center', marginVertical: 15}}>
-                <Ionicons name="remove-circle-outline" size={30} color="black" style={styles.imageIcon}/>
-                <Text>Remove Image</Text>
-            </Pressable> )}
-            
-            <MyButton 
-                title='Post'
-                onPress={submitPost}
-            />
-            </>
-            )}
+                {image && (
+                <Pressable onPress={removeImage} style={{flexDirection: 'row', alignItems: 'center', marginVertical: 15}}>
+                    <Ionicons name="remove-circle-outline" size={30} color="black" style={styles.imageIcon}/>
+                    <Text>Remove Image</Text>
+                </Pressable> )}
+                
+                <MyButton 
+                    title='Post'
+                    onPress={submitPost}
+                />
+                </>
+                )}
+                </View>
+            </TouchableWithoutFeedback>
         </SafeAreaView>
     )
 }
