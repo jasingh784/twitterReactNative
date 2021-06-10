@@ -18,7 +18,7 @@ export const getAllPosts = async() => {
         })
 
         const allPosts = await response.json();
-        return allPosts;
+        return allPosts.reverse();
 
     } catch (error) {
         console.log(error)

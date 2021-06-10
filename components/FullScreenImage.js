@@ -1,13 +1,24 @@
-import React from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Pressable, ActivityIndicator } from 'react-native'
 
 export default function FullScreenImage({mediaUrl}) {
+    const [isLoading, setIsLoading] = useState(true);
+
+
     return (
+        
         <View style={styles.container}>
-            <Pressable style={fullScreenOverlay}>
-                <Image style={styles.fullscreenImage} source={{uri: mediaUrl}}/>
-            </Pressable>
+            {isLoading ? <ActivityIndicator color="#000000" size="large"/> : (
+                <Pressable style={fullScreenOverlay}>
+                    <Image 
+                        style={styles.fullscreenImage} 
+                        source={{uri: mediaUrl}}
+                        
+                    />
+                </Pressable>
+            )}
         </View>
+        
     )
 }
 
