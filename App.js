@@ -7,6 +7,7 @@ import DrawerNav from './screens/DrawerNav';
 import SignUpScreen from './screens/SignUpScreen';
 import { firebase } from './firebase/config';
 import { useEffect } from 'react/cjs/react.development';
+import SinglePostScreen from './screens/SinglePostScreen';
 
 const Stack = createStackNavigator();
 
@@ -51,6 +52,11 @@ export default function App() {
           name="SignUp"
           component={SignUpScreen}
           options={{ headerShown: false}}
+        />
+        <Stack.Screen
+          name="SinglePostScreen"
+          component={SinglePostScreen}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

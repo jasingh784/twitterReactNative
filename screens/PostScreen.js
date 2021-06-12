@@ -21,7 +21,7 @@ function PostScreen( { navigation }) {
     }, [])
 
     const renderItem = ({item}) => (
-        <Post postText={item.postText} author={item.author} mediaUrl={item.mediaUrl}/>
+        <Post postId={item._id} postText={item.postText} author={item.author} mediaUrl={item.mediaUrl} navigation={navigation}/>
     )
 
     return (

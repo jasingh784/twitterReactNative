@@ -5,7 +5,7 @@ import PostHeader from './PostComponents/PostHeader'
 import PostBody from './PostComponents/PostBody';
 
 
-function Post({postText, author, mediaUrl}) {
+function Post({postText, author, mediaUrl, navigation, postId}) {
 
     const [fullScreenUrl, setfullScreenUrl] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
@@ -20,6 +20,11 @@ function Post({postText, author, mediaUrl}) {
 
     return (
         <View style={styles.container}>
+            <Pressable onPress={() => {
+                navigation.navigate('SinglePostScreen', {
+                    postId: postId,
+                })
+                }}>
             <PostHeader author={author}/>
 
             <PostBody postText={postText}/>
@@ -45,6 +50,7 @@ function Post({postText, author, mediaUrl}) {
             </Modal>
 
             <PostFooter />
+            </Pressable>
         </View>
     )
 }
