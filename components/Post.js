@@ -21,9 +21,11 @@ function Post({postText, author, mediaUrl, navigation, postId}) {
     return (
         <View style={styles.container}>
             <Pressable onPress={() => {
-                navigation.navigate('SinglePostScreen', {
-                    postId: postId,
-                })
+                if(navigation) {
+                    navigation.navigate('SinglePostScreen', {
+                        postId: postId,
+                    })
+                }
                 }}>
             <PostHeader author={author}/>
 
