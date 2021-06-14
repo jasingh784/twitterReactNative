@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, SafeAreaView, StyleSheet, Modal, Pressable, TextInput, Keyboard } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, Modal, Pressable, TextInput, Keyboard, ScrollView } from 'react-native'
 import Post from '../components/Post';
 import { getOnePost } from '../utils/api';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Button } from 'react-native-paper';
 import CreatePost from '../components/CreatePost';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 export default function SinglePostScreen({ navigation, route }) {
@@ -42,6 +43,7 @@ export default function SinglePostScreen({ navigation, route }) {
                 onRequestClose={() => {
                     setModalVisible(false);
                 }}
+                
             >
                 <Pressable style={{flex: 1}} onPress={Keyboard.dismiss}>
                     <View style={styles.replyModal}>
@@ -55,6 +57,7 @@ export default function SinglePostScreen({ navigation, route }) {
                             <MaterialCommunityIcons name="close" size={24} color="black" />
                         </Button>
                         <Text>Replying to:</Text>
+
                         <CreatePost />
                         
                     </View>
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end'
     },  
     replyModal: {
-        height: '60%',
+        height: '70%',
         margin: 20,
         marginTop: 'auto',
         backgroundColor: "white",
