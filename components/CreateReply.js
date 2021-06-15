@@ -2,15 +2,14 @@ import React, {useEffect, useState} from 'react'
 import { SafeAreaView, TextInput, StyleSheet, ActivityIndicator, StatusBar, Pressable, Text, Image, TouchableWithoutFeedback, Keyboard, View } from 'react-native'
 import MyButton from '../components/MyButton';
 import PostHeader from '../components/PostComponents/PostHeader'
-import { createPost } from '../utils/api'
-import DrawerHeader from '../components/DrawerHeader';
+import { createReply } from '../utils/api'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
 import { firebase } from '../firebase/config';
 
 
-function CreatePost() {
+function CreateReply({topPostId}) {
 
     const [postText, setPostText] = useState('');
     const [isLoading, setIsLoading] = useState(true);
@@ -45,17 +44,18 @@ function CreatePost() {
 
     const submitPost = async() => {
         setisPosting(true);
+        console.log("inside submit post for replies")
         let mediaUrl = null;
         if(image) {
             mediaUrl = await uploadImage();
             console.log("media url", mediaUrl);
         }
-        const postId = await createPost({postText, mediaUrl});
+        const postId = await createReply({postText, mediaUrl}, topPostId);
         if(postId != 0) {
             setPostText('');
             setImage(null);
             setisPosting(false);
-            navigation.navigate("Profile")
+            
         } else {
             setisPosting(false);
             Alert.alert(
@@ -160,4 +160,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CreatePost
+export default CreateReply

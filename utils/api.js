@@ -47,6 +47,30 @@ export const createPost = async(data) => {
     }
 }
 
+export const createReply = async(data, topPostId) => {
+
+    let url = baseURL + topPostId;
+
+    const token = await AsyncStorage.getItem('auth-token');
+    token.toString();
+
+    try {
+        const response = await fetch(url, 
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': token,
+            },
+            body: JSON.stringify(data),
+        })
+        const postData = await response.json();
+        return postData.postId;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const getOnePost = async(id) => {
 
     let url = baseURL + id;

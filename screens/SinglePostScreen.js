@@ -4,9 +4,7 @@ import Post from '../components/Post';
 import { getOnePost } from '../utils/api';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Button } from 'react-native-paper';
-import CreatePost from '../components/CreatePost';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import CreateReply from '../components/CreateReply';
 
 export default function SinglePostScreen({ navigation, route }) {
     //get params
@@ -57,9 +55,9 @@ export default function SinglePostScreen({ navigation, route }) {
                             <MaterialCommunityIcons name="close" size={24} color="black" />
                         </Button>
                         <Text>Replying to:</Text>
-
-                        <CreatePost />
-                        
+                        <ScrollView>
+                        <CreateReply topPostId={postId}/>
+                        </ScrollView>
                     </View>
                 </Pressable>
             </Modal>
